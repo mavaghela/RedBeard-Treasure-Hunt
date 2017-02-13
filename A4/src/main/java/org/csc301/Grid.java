@@ -99,6 +99,7 @@ public class Grid {
 	private ArrayList<Node> getNeighbours(Node node) {
 		// each node has at most 8 neighbours
 		// Lab3 may be useful here as well
+		return null;
 	}
 
 	private int getDistance(Node nodeA, Node nodeB) {
@@ -139,6 +140,7 @@ public class Grid {
 		// range is the range of the sonar
 		// if the distance of the treasure from the boat is less or equal that the sonar range,
 		// return the treasure node. Otherwise return null.
+		return null;
 	}
 
 }

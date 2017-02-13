@@ -27,6 +27,7 @@ public class Node implements HeapItem {
 	@Override
 	public int compareTo(HeapItem other) {
 		// Your implementation goes here. Similar to Lab4.
+		return 0;
 	}
 
 	@Override
@@ -42,5 +43,6 @@ public class Node implements HeapItem {
 	@Override
 	public boolean equals(Object other) {
 		// Your implementation goes here. Two nodes are equal if they occupy same position in the map.
+		return false;
 	}
 }
