@@ -79,7 +79,7 @@ public class Grid {
 		result += hline + "\n";
 		return result;
 	}
-	
+
 	public int getWidth() {
 		return width;
 	}
@@ -91,11 +91,11 @@ public class Grid {
 	public int getPercent() {
 		return percent;
 	}
-	
+
 	public Node getBoat() {
 		return boat;
 	}
-	
+
 	private ArrayList<Node> getNeighbours(Node node) {
 		// each node has at most 8 neighbours
 		// Lab3 may be useful here as well
@@ -134,8 +134,30 @@ public class Grid {
 	public void move(String direction) {
 		// Direction may be: N,S,W,E,NE,NW,SE,SW
 		// move the boat 1 cell in the required direction
+		switch (direction)
+		{
+			case "N":
+				break;
+			case "S":
+				break;
+			case "W":
+				break;
+			case "E":
+				break;
+			case "NE":
+				break;
+			case "NW":
+				break;
+			case "SE":
+				break;
+			case "SW":
+				break;
+	         default:
+			 	// illegal direction
+				break;
+     	}
 	}
-	
+
 	public Node getTreasure(int range) {
 		// range is the range of the sonar
 		// if the distance of the treasure from the boat is less or equal that the sonar range,

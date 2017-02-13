@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-
+// import java.io.FileReader;
+import java.io.*;
 
 public class TreasureHunt {
 
@@ -23,21 +23,43 @@ public class TreasureHunt {
 
 	public TreasureHunt(int height, int width, int landPercent, int sonars,
 			int range) {
-		// The constructor thatuses parameters
+		// The constructor that uses parameters
+		this.height = height;
+		this.width = width;
+		this.landPercent = landPercent;
+		this.sonars = sonars;
+		this.range = range;
 	}
 
 	private void processCommand(String command) throws HeapFullException,
 			HeapEmptyException {
-		// The allowed commands are: 
+		// The allowed commands are:
 		// SONAR to drop the sonar in hope to detect treasure
 		// GO direction to move the boat in some direction
-		// For example, GO NW means move the boat one cell up left (if the cell is navigable; if not simply ignore the command) 
+		// For example, GO NW means move the boat one cell up left (if the cell is navigable; if not simply ignore the command)
+		if(command.equals("SONAR")) {
+			if (sonars == 0) {
+				// you lose the game
+				return;
+			}
+			sonars --;
+			islands.getTreasure(range);
+		}
+		else {
+			String[] dir = command.split(" ");
+			if(dir.length == 2 && dir[0].equals("GO"))
+			{
+				String direction = dir[1];
+				islands.move(direction);
+			}
+		}
 	}
 
 	public int pathLength() {
 		if (path == null)
 			return 0;
-		else return path.size();
+		else
+			return path.size();
 	}
 
 	public String getMap() {
@@ -45,8 +67,24 @@ public class TreasureHunt {
 	}
 
 	public void play(String pathName) throws FileNotFoundException,
-			HeapFullException, HeapEmptyException {
+			HeapFullException, HeapEmptyException
+	{
 		// Read a batch of commands from a text file and process them.
-	}
 
+		File file = new File(pathName);
+
+    	try {
+	        Scanner sc = new Scanner(file);
+
+	        while (sc.hasNextLine()) {
+				String line = sc.nextLine();
+				processCommand(line);
+	        }
+
+	        sc.close();
+    	}
+		catch (Exception e) {
+            e.printStackTrace();
+        }
+	}
 }
