@@ -75,21 +75,21 @@ public class Grid {
 	private int[] getRandom(boolean object){
 		Random r = new Random();
 		int[] coord = new int[2];
-		int x = r.nextInt(height -1);
-		int y = r.nextInt(width -1);
+		int x = r.nextInt(height);
+		int y = r.nextInt(width);
 
 		// If we're getting coords for boat or treasure it has
 		// to be navigable ie. the water
 		if(object){
 			while(!(map[x][y].walkable)){
-				x = r.nextInt(height - 1);
-				y = r.nextInt(width - 1);
+				x = r.nextInt(height-1);
+				y = r.nextInt(width-1);
 			}
 		}
 		else {
 			while (null != map[x][y]) {
-				x = r.nextInt(height - 1);
-				y = r.nextInt(width - 1);
+				x = r.nextInt(height-1);
+				y = r.nextInt(width-1);
 			}
 		}
 		coord[0] = x;
@@ -116,9 +116,9 @@ public class Grid {
 				extraSpace = "     ";
 			hline = extraSpace + i;
 			for (int j = 0; j < width; j++) {
-				if (i == boat.gridY && j == boat.gridX)
+				if (i == boat.gridX && j == boat.gridY)
 					hline += "B";
-				else if (i == treasure.gridY && j == treasure.gridX)
+				else if (i == treasure.gridX && j == treasure.gridY)
 					hline += "T";
 				else if (map[i][j].inPath)
 					hline += "*";
