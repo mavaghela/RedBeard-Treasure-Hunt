@@ -1,7 +1,7 @@
 package org.csc301;
 
 public class Heap<T extends HeapItem> {
-
+	
 	// Note the T is a parameter representing a type that extends the HeapItem interface
 	// This a new way to use inheritance!
 
@@ -24,8 +24,8 @@ public class Heap<T extends HeapItem> {
 	}
 
 	public void add(T item) throws HeapFullException
+	// Adds item T to its correct position on the heap
 	{
-		// Adds item T to its correct position on the heap
 		if (isFull())
 			throw new HeapFullException();
 		else {
@@ -37,9 +37,9 @@ public class Heap<T extends HeapItem> {
 	}
 
 	public boolean contains(T item)
+	// Returns true if item is on the heap
+	// Otherwise returns false
 	{
-		// Returns true if item is on the heap
-		// Otherwise returns false
 		return items[item.getHeapIndex()].equals(item);
 	}
 
@@ -52,8 +52,8 @@ public class Heap<T extends HeapItem> {
 	}
 
 	public T removeFirst() throws HeapEmptyException
+	// Removes and returns the element sitting on top of the heap
 	{
-		// Removes and returns the element sitting on top of the heap
 		if (isEmpty())
 			throw new HeapEmptyException();
 		else {
@@ -65,47 +65,18 @@ public class Heap<T extends HeapItem> {
 			return firstItem;
 		}
 	}
-
+	
 	private void sortUp(T item) {
 		// Implement this method according to the diagram on the handout.
 		// Also: the indices of children and parent elements satisfy some relationships.
 		// The formulas are on the handout.
-		int index = currentItemCount - 1;
-
-		// TODO while(index > 0 && items[index/2].compareTo(items[index])
-		while(index>0 && items[index/2]>items[index]){
-			swap(index, index/2);
-			index = index/2;
-		}
 	}
-
+	
 	private void sortDown(T item) {
 		// Implement this method according to the diagram on the handout.
-		// Also: the indices of children and parent elements satisfy some relationships.
-		// The formulas are on the handout.
-		int smallest = item;
-
-		// TODO if(2*item<currentItemCount && items[smallest].compareTo(items[2*item])){
-		if(2*item<currentItemCount && items[smallest]>items[2*item]){
-			smallest = 2*item;
-		}
-
-		// TODO if(2*item+1<currentItemCount && items[smallest].compareTo(items[2*item+1])){
-		if(2*item+1<currentItemCount && items[smallest]>items[2*item+1]){
-			smallest = 2*item+1;
-		}
-
-		if(smallest != item){
-			swap(item, smallest);
-			sinkDown(smallest);
-		}
+				// Also: the indices of children and parent elements satisfy some relationships.
+				// The formulas are on the handout.
 	}
-
+	
 	// You may implement additional helper methods if desired. Make sure to make them private!
-	private void swap(int i, int j)
-	{
-		T temp = items[i];
-		items[i] = items[j];
-		items[j] = temp;
-	}
 }
