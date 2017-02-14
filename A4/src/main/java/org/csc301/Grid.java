@@ -42,9 +42,8 @@ public class Grid {
 
 	private void buildMap() {
 		int coord[];
-
-		int squares = width * height;
-		int numIslands = squares * (percent / 100);
+		double squares = width * height;
+		int numIslands = (int)(squares * ((double)percent/100.0));
 
 		//creating islands
 		for(int k = 0; k < numIslands; k++){
@@ -63,9 +62,11 @@ public class Grid {
 
 		coord = getRandom(true);
 		boat = new Node(false, coord[0], coord[1]);
+		System.out.println(String.format("We just created a boat at %d %d",coord[0], coord[1]));
 
 		coord = getRandom(true);
 		treasure = new Node(false, coord[0], coord[1]);
+		System.out.println(String.format("We just created an treasure at %d %d",coord[0], coord[1]));
 
 	}
 
