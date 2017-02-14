@@ -1,9 +1,6 @@
 package org.csc301;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class Grid {
 
@@ -21,6 +18,7 @@ public class Grid {
 		width = DEFAULT_WIDTH;
 		height = DEFAULT_HEIGHT;
 		percent = DEFAULT_PERCENT;
+		map = new Node[height][width];
 		buildMap();
 	}
 
@@ -31,33 +29,71 @@ public class Grid {
 			this.percent = DEFAULT_PERCENT;
 		else
 			this.percent = percent;
+		map = new Node[height][width];
 		buildMap();
 	}
 
+	/**  Your implementation goes here
+	 For each map position (i,j) you need to generate a Node with can be navigable
+	 or it may belong to an island
+	 You may use ideas from Lab3 here.
+	 Don't forget to generate the location of the boat and of the treasure;
+	 they must be on navigable waters, not on the land! **/
+
 	private void buildMap() {
-		// Your implementation goes here
-		// For each map position (i,j) you need to generate a Node with can be navigable or it may belong to an island
-		// You may use ideas from Lab3 here.
-		// Don't forget to generate the location of the boat and of the treasure; they must be on navigable waters, not on the land!
+		int coord[];
 
-		Random r = new Random();
-		int x = r.nextInt(width -1);
-		int y = r.nextInt(height -1);
-		boat = new Node(false, x, y);
-		map[x][y] = boat;
+		int squares = width * height;
+		int numIslands = squares * (percent / 100);
 
-		x = r.nextInt(width -1);
-		y = r.nextInt(height -1);
-
-		while(map[x][y] != null){
-			x = r.nextInt(width -1);
-			y = r.nextInt(height -1);
+		//creating islands
+		for(int k = 0; k < numIslands; k++){
+			coord = getRandom(false);
+			map[coord[0]][coord[1]] = new Node(false, coord[0], coord[1]);
 		}
-		treasure = new Node(false, x, y);
-		map[x][y] = treasure;
 
-		
+		//creating water
+		for(int l = 0; l < height; l++){
+			for(int m = 0; m < width; m++){
+				if(null == map[l][m]){
+					map[l][m] = new Node(true, l, m);
+				}
+			}
+		}
 
+		coord = getRandom(true);
+		boat = new Node(false, coord[0], coord[1]);
+
+		coord = getRandom(true);
+		treasure = new Node(false, coord[0], coord[1]);
+
+	}
+
+	/** Generates random index values in map that haven't
+	 * been used before **/
+	private int[] getRandom(boolean object){
+		Random r = new Random();
+		int[] coord = new int[2];
+		int x = r.nextInt(height -1);
+		int y = r.nextInt(width -1);
+
+		// If we're getting coords for boat or treasure it has
+		// to be navigable ie. the water
+		if(object){
+			while(!(map[x][y].walkable)){
+				x = r.nextInt(height - 1);
+				y = r.nextInt(width - 1);
+			}
+		}
+		else {
+			while (null != map[x][y]) {
+				x = r.nextInt(height - 1);
+				y = r.nextInt(width - 1);
+			}
+		}
+		coord[0] = x;
+		coord[1] = y;
+		return coord;
 	}
 
 	public String drawMap() {

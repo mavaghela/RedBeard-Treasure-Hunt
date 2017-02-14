@@ -21,6 +21,7 @@ public class TreasureHunt {
 		this.islands = new Grid();
 		this.sonars = DEFAULT_SONARS;
 		this.range = DEFAULT_RANGE;
+		System.out.println(getMap());
 	}
 
 	public TreasureHunt(int height, int width, int landPercent, int sonars,
