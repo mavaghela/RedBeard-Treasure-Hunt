@@ -39,6 +39,25 @@ public class Grid {
 		// For each map position (i,j) you need to generate a Node with can be navigable or it may belong to an island
 		// You may use ideas from Lab3 here.
 		// Don't forget to generate the location of the boat and of the treasure; they must be on navigable waters, not on the land!
+
+		Random r = new Random();
+		int x = r.nextInt(width -1);
+		int y = r.nextInt(height -1);
+		boat = new Node(false, x, y);
+		map[x][y] = boat;
+
+		x = r.nextInt(width -1);
+		y = r.nextInt(height -1);
+
+		while(map[x][y] != null){
+			x = r.nextInt(width -1);
+			y = r.nextInt(height -1);
+		}
+		treasure = new Node(false, x, y);
+		map[x][y] = treasure;
+
+		
+
 	}
 
 	public String drawMap() {

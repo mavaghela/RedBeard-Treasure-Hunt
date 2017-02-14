@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-// import java.io.FileReader;
 import java.io.*;
 
 public class TreasureHunt {
@@ -19,6 +18,9 @@ public class TreasureHunt {
 
 	public TreasureHunt() {
 		// The default constructor
+		this.islands = new Grid();
+		this.sonars = DEFAULT_SONARS;
+		this.range = DEFAULT_RANGE;
 	}
 
 	public TreasureHunt(int height, int width, int landPercent, int sonars,
@@ -29,6 +31,7 @@ public class TreasureHunt {
 		this.landPercent = landPercent;
 		this.sonars = sonars;
 		this.range = range;
+		this.islands = new Grid(width, height, landPercent);
 	}
 
 	private void processCommand(String command) throws HeapFullException,
@@ -47,8 +50,7 @@ public class TreasureHunt {
 		}
 		else {
 			String[] dir = command.split(" ");
-			if(dir.length == 2 && dir[0].equals("GO"))
-			{
+			if(dir.length == 2 && dir[0].equals("GO")) {
 				String direction = dir[1];
 				islands.move(direction);
 			}
