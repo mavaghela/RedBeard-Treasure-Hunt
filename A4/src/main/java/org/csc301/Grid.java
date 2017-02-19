@@ -168,12 +168,73 @@ public class Grid {
 	}
 
 	public void findPath(Node startNode, Node targetNode)
-			throws HeapFullException, HeapEmptyException {
+			throws HeapFullException, HeapEmptyException
+	{
+		if(startNode == targetNode)
+			return;
+
 		Heap<Node> openSet = new Heap<>(width * height); // this where we make use of our heaps
-		// The rest of your implementation goes here.
-		// This method implements A-star path search algorithm.
-		// The pseudocode is provided in the appropriate web links.
-		// Make sure to use the helper method getNeighbours
+		ArrayList<Node> closedSet = new ArrayList<Node>();
+
+		// Add the starting square (or node) to the open list.
+		openSet.add(startNode);
+
+		while(!openSet.isEmpty())
+		{
+			// Look for the lowest F cost square on the open list (current Square)
+			Node currentNode = openSet.removeFirst();
+
+			if(currentNode == null || currentNode == targetNode){
+				return;
+			}
+
+			// Switch it to the closed list.
+			closedSet.add(currentNode);
+
+			// For each of the 8 squares adjacent to this current square …
+			ArrayList<Node> neighbours = getNeighbours(currentNode);
+
+			for (Node n : neighbours) {
+				// If not walkable or on the closed list, ignore it
+				if(n == null || !n.walkable || closedSet.contains(n)){
+					continue;
+				}
+
+				/*
+				If it isn’t on the open list, add it to the open list.
+				Make the current square the parent of this square.
+				Record the F, G, and H costs of the square.
+				*/
+				if(!openSet.contains(n)){
+					n.parent = currentNode;
+
+					int gCost = getDistance(n, currentNode);
+					int hCost = getDistance(n, targetNode);
+
+					n.setGCost(gCost);
+					n.setHCost(hCost);
+
+					openSet.add(n);
+				}
+
+				/*
+				If it is on the open list already,
+				check to see if this path to that square is better,
+				using G cost as the measure.
+				A lower G cost means that this is a better path.
+				If so, change the parent of the square to the current square,
+				and recalculate the G and F scores of the square.
+				*/
+				else {
+					int currentGCost = n.getGCost();
+					int newGCost = getDistance(n, currentNode);
+					if (currentGCost > newGCost) {
+						n.parent = currentNode;
+						n.setGCost(newGCost);
+                    }
+				}
+			}
+		}
 	}
 
 	public ArrayList<Node> retracePath(Node startNode, Node endNode) {
@@ -220,5 +281,4 @@ public class Grid {
 		// return the treasure node. Otherwise return null.
 		return null;
 	}
-
 }

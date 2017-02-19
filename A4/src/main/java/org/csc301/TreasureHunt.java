@@ -35,7 +35,7 @@ public class TreasureHunt {
 		this.islands = new Grid(width, height, landPercent);
 	}
 
-	private void processCommand(String command) throws HeapFullException,
+	public void processCommand(String command) throws HeapFullException,
 			HeapEmptyException {
 		// The allowed commands are:
 		// SONAR to drop the sonar in hope to detect treasure
