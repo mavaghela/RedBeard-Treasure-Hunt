@@ -154,8 +154,26 @@ public class Grid {
 
 	private ArrayList<Node> getNeighbours(Node node) {
 		// each node has at most 8 neighbours
-		// Lab3 may be useful here as well
-		return null;
+
+		ArrayList<Node> neighbours = new ArrayList<Node>();
+		int startX  = Math.max(node.gridX - 1, 0);
+		int endX = Math.min(node.gridX + 1, width - 1);
+		int startY  = Math.max(node.gridY - 1, 0);
+		int endY = Math.min(node.gridY + 1, height - 1);
+
+		for (int curX = startX; curX <= endX; curX++) {
+			for (int curY = startY; curY <= endY; curY++) {
+				if(node.gridX == curX && node.gridY == curY){
+					continue;
+				}
+				Node n = map[curX][curY];
+				if(n != null){
+					neighbours.add(n);
+				}
+			}
+		}
+
+		return neighbours;
 	}
 
 	private int getDistance(Node nodeA, Node nodeB) {
@@ -200,20 +218,17 @@ public class Grid {
 					continue;
 				}
 
-				/*
-				If it isn’t on the open list, add it to the open list.
-				Make the current square the parent of this square.
-				Record the F, G, and H costs of the square.
-				*/
 				if(!openSet.contains(n)){
+					/*
+					If it isn’t on the open list, add it to the open list.
+					Make the current square the parent of this square.
+					Record the F, G, and H costs of the square.
+					*/
 					n.parent = currentNode;
-
 					int gCost = getDistance(n, currentNode);
 					int hCost = getDistance(n, targetNode);
-
 					n.setGCost(gCost);
 					n.setHCost(hCost);
-
 					openSet.add(n);
 				}
 
