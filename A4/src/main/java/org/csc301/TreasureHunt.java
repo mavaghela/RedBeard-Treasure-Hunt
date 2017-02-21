@@ -43,11 +43,16 @@ public class TreasureHunt {
 		// For example, GO NW means move the boat one cell up left (if the cell is navigable; if not simply ignore the command)
 		if(command.equals("SONAR")) {
 			if (sonars == 0) {
-				// you lose the game
+				// TODO you lose the game
 				return;
 			}
 			sonars --;
-			islands.getTreasure(range);
+			Node treasure = islands.getTreasure(range);
+			if(treasure != null){
+				islands.findPath(islands.boat, treasure);
+				path = islands.retracePath(islands.boat, treasure);
+			}
+			// TODO you win
 		}
 		else {
 			String[] dir = command.split(" ");

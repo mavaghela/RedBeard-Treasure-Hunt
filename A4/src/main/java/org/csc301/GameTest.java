@@ -15,10 +15,10 @@ public class GameTest {
 	public static void main(String[] args) throws FileNotFoundException, HeapFullException, HeapEmptyException {
 		// TODO Auto-generated method stub
 		TreasureHunt game = new TreasureHunt();
-        //game.play("game.txt");
-//        System.out.println(game.getMap());
-//        System.out.println(game.state);
-//        System.out.println(game.pathLength());
+        game.play("game.txt");
+        System.out.println(game.getMap());
+        System.out.println(game.state);
+        System.out.println(game.pathLength());
 	}
 
 }

@@ -18,7 +18,7 @@ public class Grid {
 		width = DEFAULT_WIDTH;
 		height = DEFAULT_HEIGHT;
 		percent = DEFAULT_PERCENT;
-		map = new Node[height][width];
+		map = new Node[width][height];
 		buildMap();
 	}
 
@@ -29,7 +29,7 @@ public class Grid {
 			this.percent = DEFAULT_PERCENT;
 		else
 			this.percent = percent;
-		map = new Node[height][width];
+		map = new Node[width][height];
 		buildMap();
 	}
 
@@ -52,8 +52,8 @@ public class Grid {
 		}
 
 		//creating water
-		for(int l = 0; l < height; l++){
-			for(int m = 0; m < width; m++){
+		for(int l = 0; l < width; l++){
+			for(int m = 0; m < height; m++){
 				if(null == map[l][m]){
 					map[l][m] = new Node(true, l, m);
 				}
@@ -62,12 +62,13 @@ public class Grid {
 
 		coord = getRandom(true);
 		boat = new Node(false, coord[0], coord[1]);
+		map[coord[0]][coord[1]] = boat;
 		System.out.println(String.format("We just created a boat at %d %d",coord[0], coord[1]));
 
 		coord = getRandom(true);
 		treasure = new Node(false, coord[0], coord[1]);
-		System.out.println(String.format("We just created an treasure at %d %d",coord[0], coord[1]));
-
+		map[coord[0]][coord[1]] = treasure;
+		System.out.println(String.format("We just created a treasure at %d %d",coord[0], coord[1]));
 	}
 
 	/** Generates random index values in map that haven't
@@ -75,21 +76,21 @@ public class Grid {
 	private int[] getRandom(boolean object){
 		Random r = new Random();
 		int[] coord = new int[2];
-		int x = r.nextInt(height);
-		int y = r.nextInt(width);
+		int x = r.nextInt(width);
+		int y = r.nextInt(height);
 
 		// If we're getting coords for boat or treasure it has
 		// to be navigable ie. the water
 		if(object){
 			while(!(map[x][y].walkable)){
-				x = r.nextInt(height-1);
-				y = r.nextInt(width-1);
+				x = r.nextInt(width-1);
+				y = r.nextInt(height-1);
 			}
 		}
 		else {
 			while (null != map[x][y]) {
-				x = r.nextInt(height-1);
-				y = r.nextInt(width-1);
+				x = r.nextInt(width-1);
+				y = r.nextInt(height-1);
 			}
 		}
 		coord[0] = x;
@@ -116,13 +117,13 @@ public class Grid {
 				extraSpace = "     ";
 			hline = extraSpace + i;
 			for (int j = 0; j < width; j++) {
-				if (i == boat.gridX && j == boat.gridY)
+				if (i == boat.gridY && j == boat.gridX)
 					hline += "B";
-				else if (i == treasure.gridX && j == treasure.gridY)
+				else if (i == treasure.gridY && j == treasure.gridX)
 					hline += "T";
-				else if (map[i][j].inPath)
+				else if (map[j][i].inPath)
 					hline += "*";
-				else if (map[i][j].walkable)
+				else if (map[j][i].walkable)
 					hline += ".";
 				else
 					hline += "+";
@@ -266,23 +267,50 @@ public class Grid {
 	public void move(String direction) {
 		// Direction may be: N,S,W,E,NE,NW,SE,SW
 		// move the boat 1 cell in the required direction
+		int curX = boat.gridX;
+		int curY = boat.gridY;
+
 		switch (direction)
 		{
 			case "N":
+				if(isWalkable(curX, curY + 1)){
+					moveBoat(curX, curY + 1);
+				}
 				break;
 			case "S":
+				if(isWalkable(curX, curY - 1)){
+					moveBoat(curX, curY - 1);
+				}
 				break;
 			case "W":
+				if(isWalkable(curX - 1, curY)){
+					moveBoat(curX - 1, curY);
+				}
 				break;
 			case "E":
+				if(isWalkable(curX + 1, curY)){
+					moveBoat(curX + 1, curY);
+				}
 				break;
 			case "NE":
+				if(isWalkable(curX + 1, curY - 1)){
+					moveBoat(curX + 1, curY - 1);
+				}
 				break;
 			case "NW":
+				if(isWalkable(curX - 1, curY - 1)){
+					moveBoat(curX - 1, curY - 1);
+				}
 				break;
 			case "SE":
+				if(isWalkable(curX + 1, curY + 1)){
+					moveBoat(curX + 1, curY + 1);
+				}
 				break;
 			case "SW":
+				if(isWalkable(curX - 1, curY + 1)){
+					moveBoat(curX - 1, curY + 1);
+				}
 				break;
 	         default:
 			 	// illegal direction
@@ -294,6 +322,28 @@ public class Grid {
 		// range is the range of the sonar
 		// if the distance of the treasure from the boat is less or equal that the sonar range,
 		// return the treasure node. Otherwise return null.
+
+		int distance = getDistance(boat, treasure);
+		if(distance <= range){
+			return treasure;
+		}
+
 		return null;
+	}
+
+	private boolean isWalkable(int x, int y){
+		if(x < 0 || x >= width || y < 0 || y >= height){
+			return false;
+		}
+		return map[x][y].walkable;
+	}
+
+	private void moveBoat(int newX, int newY){
+		// set old location to water
+		map[boat.gridX][boat.gridY] = new Node(true, boat.gridX, boat.gridY);
+
+		boat.gridX = newX;
+		boat.gridY = newY;
+		map[newX][newY] = boat;
 	}
 }
