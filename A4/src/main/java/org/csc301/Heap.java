@@ -71,36 +71,69 @@ public class Heap<T extends HeapItem> {
 		// Also: the indices of children and parent elements satisfy some relationships.
 		// The formulas are on the handout.
 
-		int index = currentItemCount - 1;
+		int index = item.getHeapIndex();
+		T parent = getParent(item);
 
-		// // TODO while(index > 0 && items[index/2].compareTo(items[index])
-		// while(index>0 && items[index/2]>items[index]){
-		// 	swap(index, index/2);
-		// 	index = index/2;
-		// }
+		while(parent != null && parent.compareTo(item) == 1){
+			swap(item, parent);
+			parent = getParent(item);
+		}
 	}
 
 	private void sortDown(T item) {
 		// Implement this method according to the diagram on the handout.
 		// Also: the indices of children and parent elements satisfy some relationships.
 		// The formulas are on the handout.
-		// int smallest = item;
-		//
-		// // TODO if(2*item<currentItemCount && items[smallest].compareTo(items[2*item])){
-		// if(2*item<currentItemCount && items[smallest]>items[2*item]){
-		// 	smallest = 2*item;
-		// }
-		//
-		// // TODO if(2*item+1<currentItemCount && items[smallest].compareTo(items[2*item+1])){
-		// if(2*item+1<currentItemCount && items[smallest]>items[2*item+1]){
-		// 	smallest = 2*item+1;
-		// }
-		//
-		// if(smallest != item){
-		// 	swap(item, smallest);
-		// 	sortDown(smallest);
-		// }
+
+		T smallest = item;
+
+		// check left child
+		T leftChild = getChild(item, false);
+		if(leftChild != null && smallest.compareTo(leftChild) == 1){
+			smallest = leftChild;
+		}
+
+		// check right child
+		T rightChild = getChild(item, true);
+		if(rightChild != null && smallest.compareTo(rightChild) == 1){
+			smallest = rightChild;
+		}
+
+		if(smallest != item){
+			swap(item, smallest);
+			sortDown(smallest);
+		}
 	}
 
 	// You may implement additional helper methods if desired. Make sure to make them private!
+	private void swap(T item1, T item2){
+		int item1Index = item1.getHeapIndex();
+		int item2Index = item2.getHeapIndex();
+		item1.setHeapIndex(item2Index);
+		item2.setHeapIndex(item1Index);
+		items[item1Index] = item2;
+		items[item2Index] = item1;
+	}
+
+	private T getParent(T child){
+		int parentIndex = (child.getHeapIndex() - 1) / 2;
+		if (parentIndex < 0) {
+			return null;
+		}
+		return items[parentIndex];
+	}
+
+	private T getChild(T parent, boolean rightChild){
+		int parentIndex = parent.getHeapIndex();
+		int childIndex = (parentIndex * 2) + 1; // leftChild
+
+		if(rightChild){
+			childIndex++;
+		}
+
+		if(childIndex >= currentItemCount){
+			return null;
+		}
+		return items[childIndex];
+	}
 }
