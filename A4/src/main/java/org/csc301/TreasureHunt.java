@@ -21,7 +21,6 @@ public class TreasureHunt {
 		this.islands = new Grid();
 		this.sonars = DEFAULT_SONARS;
 		this.range = DEFAULT_RANGE;
-		System.out.println(getMap());
 	}
 
 	public TreasureHunt(int height, int width, int landPercent, int sonars,
@@ -44,15 +43,18 @@ public class TreasureHunt {
 		if(command.equals("SONAR")) {
 			if (sonars == 0) {
 				// TODO you lose the game
+				state = "OVER";
 				return;
 			}
+
 			sonars --;
 			Node treasure = islands.getTreasure(range);
 			if(treasure != null){
+				// TODO you win
+				state = "OVER";
 				islands.findPath(islands.boat, treasure);
 				path = islands.retracePath(islands.boat, treasure);
 			}
-			// TODO you win
 		}
 		else {
 			String[] dir = command.split(" ");
@@ -80,11 +82,11 @@ public class TreasureHunt {
 		// Read a batch of commands from a text file and process them.
 
 		File file = new File(pathName);
-
+		state = "STARTED";
     	try {
 	        Scanner sc = new Scanner(file);
 
-	        while (sc.hasNextLine()) {
+	        while (sc.hasNextLine() && state.equals("STARTED")) {
 				String line = sc.nextLine();
 				processCommand(line);
 	        }

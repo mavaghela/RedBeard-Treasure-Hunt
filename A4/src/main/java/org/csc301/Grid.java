@@ -14,6 +14,8 @@ public class Grid {
 
 	protected Node[][] map; // the map
 
+	private boolean DEBUG = false;
+
 	public Grid() {
 		width = DEFAULT_WIDTH;
 		height = DEFAULT_HEIGHT;
@@ -23,11 +25,12 @@ public class Grid {
 	}
 
 	public Grid(int width, int height, int percent) {
+		DEBUG = false;
 		this.width = width;
 		this.height = height;
-		if (percent <= 0 || percent >= 100)
-			this.percent = DEFAULT_PERCENT;
-		else
+		 if (percent <= 0 || percent >= 100)
+		 	this.percent = DEFAULT_PERCENT;
+		 else
 			this.percent = percent;
 		map = new Node[width][height];
 		buildMap();
@@ -60,15 +63,28 @@ public class Grid {
 			}
 		}
 
-		coord = getRandom(true);
-		boat = new Node(false, coord[0], coord[1]);
-		map[coord[0]][coord[1]] = boat;
-		System.out.println(String.format("We just created a boat at %d %d",coord[0], coord[1]));
+		if(DEBUG)
+		{
+			boat = new Node(false, 0, 0);
+			map[0][0] = boat;
 
-		coord = getRandom(true);
-		treasure = new Node(false, coord[0], coord[1]);
-		map[coord[0]][coord[1]] = treasure;
-		System.out.println(String.format("We just created a treasure at %d %d",coord[0], coord[1]));
+			treasure = new Node(true, width - 1, height - 1);
+			map[width-1][height-1] = treasure;
+		}
+		else
+		{
+			coord = getRandom(true);
+			boat = new Node(false, coord[0], coord[1]);
+			map[coord[0]][coord[1]] = boat;
+
+
+			coord = getRandom(true);
+			treasure = new Node(true, coord[0], coord[1]);
+			map[coord[0]][coord[1]] = treasure;
+
+		}
+		System.out.println(String.format("We just created a boat at %d %d",boat.gridX, boat.gridY));
+		System.out.println(String.format("We just created a treasure at %d %d",treasure.gridX, treasure.gridY));
 	}
 
 	/** Generates random index values in map that haven't
