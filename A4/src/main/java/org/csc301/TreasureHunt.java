@@ -91,6 +91,8 @@ public class TreasureHunt {
 				processCommand(line);
 	        }
 
+	        state = "OVER";
+
 	        sc.close();
     	}
 		catch (Exception e) {

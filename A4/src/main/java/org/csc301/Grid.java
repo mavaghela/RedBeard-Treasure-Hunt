@@ -289,13 +289,13 @@ public class Grid {
 		switch (direction)
 		{
 			case "N":
-				if(isWalkable(curX, curY + 1)){
-					moveBoat(curX, curY + 1);
+				if(isWalkable(curX, curY - 1)){
+					moveBoat(curX, curY - 1);
 				}
 				break;
 			case "S":
-				if(isWalkable(curX, curY - 1)){
-					moveBoat(curX, curY - 1);
+				if(isWalkable(curX, curY + 1)){
+					moveBoat(curX, curY + 1);
 				}
 				break;
 			case "W":
