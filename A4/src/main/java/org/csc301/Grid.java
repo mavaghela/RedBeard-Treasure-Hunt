@@ -258,7 +258,7 @@ public class Grid {
 					Record the F, G, and H costs of the square.
 					*/
 					n.parent = currentNode;
-					int gCost = getDistance(n, currentNode);
+					int gCost = currentNode.getGCost() + getDistance(n, currentNode);
 					int hCost = getDistance(n, targetNode);
 					n.setGCost(gCost);
 					n.setHCost(hCost);
@@ -275,7 +275,7 @@ public class Grid {
 				*/
 				else {
 					int currentGCost = n.getGCost();
-					int newGCost = getDistance(n, currentNode);
+					int newGCost = currentNode.getGCost() + getDistance(n, currentNode);
 					if (currentGCost > newGCost) {
 						n.parent = currentNode;
 						n.setGCost(newGCost);
