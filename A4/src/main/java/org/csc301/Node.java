@@ -46,7 +46,7 @@ public class Node implements HeapItem {
 
 		if(thisCost == otherCost)
 			return 0;
-		return thisCost > otherCost ? 1 : 0;
+		return thisCost > otherCost ? 1 : -1;
 	}
 
 	@Override
