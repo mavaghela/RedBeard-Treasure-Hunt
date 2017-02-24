@@ -97,6 +97,27 @@ public class drawMap {
             }
         }
         frame.add(panel);
+
+        JButton north = new JButton("North");
+        JButton south = new JButton("South");
+        JButton east = new JButton("East");
+        JButton west = new JButton("West");
+        JButton ne = new JButton("North East");
+        JButton nw = new JButton("North West");
+        JButton se = new JButton("South East");
+        JButton sw = new JButton("South West");
+
+        JPanel buttonPanel = new JPanel();
+        panel.add(north);
+        panel.add(south);
+        panel.add(east);
+        panel.add(west);
+        panel.add(ne);
+        panel.add(nw);
+        panel.add(se);
+        panel.add(sw);
+        frame.add(panel);
+
     }
 
 }
