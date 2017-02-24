@@ -21,25 +21,9 @@ public class GameTest {
 	public static void main(String[] args) throws FileNotFoundException, HeapFullException, HeapEmptyException, IOException {
 		// TODO Auto-generated method stub
 
-//		JFrame frame = buildFrame();
-//
-//
-//		final BufferedImage image = ImageIO.read(new File("/home/mvaghela/csc301/assignment4-torontomaplelaughs/A4/src/main/java/org/csc301/water.gif"));
-//
-//
-//		JPanel pane = new JPanel() {
-//			@Override
-//			protected void paintComponent(Graphics g) {
-//				super.paintComponent(g);
-//				g.drawImage(image, 0, 0, null);
-//			}
-//		};
-//
-//
-//		frame.add(pane);
-
 		TreasureHunt game = new TreasureHunt();
-		game.buildGUI();
+		drawMap thing = new drawMap(game.islands);
+//		game.buildGUI();
 		// TreasureHunt game = new TreasureHunt(4, 4, 0, 3, 100);
         game.play("/home/mvaghela/csc301/assignment4-torontomaplelaughs/A4/game.txt");
 

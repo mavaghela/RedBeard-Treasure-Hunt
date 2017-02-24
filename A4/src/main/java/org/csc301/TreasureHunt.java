@@ -105,45 +105,4 @@ public class TreasureHunt {
             e.printStackTrace();
         }
 	}
-
-	public void buildGUI() throws IOException{
-		JFrame frame = buildFrame();
-
-		JPanel pane = new JPanel() {
-			final BufferedImage water = ImageIO.read(new File("/home/mvaghela/csc301/assignment4-torontomaplelaughs/A4/src/main/java/org/csc301/water.gif"));
-
-			@Override
-			protected void paintComponent(Graphics g) {
-				super.paintComponent(g);
-
-				for (int i = 0; i < height; i++) {
-					for (int j = 0; j < islands.width; j++) {
-						if (i == islands.boat.gridY && j == islands.boat.gridX){
-							// boat
-						}
-
-						else if (i == islands.treasure.gridY && j == islands.treasure.gridX){
-							// treasure
-						}
-
-						else if (islands.map[j][i].inPath){
-							// path
-						}
-
-						else if (islands.map[j][i].walkable) {
-							System.out.println("But like i'm trying to draw");
-							// water
-							g.drawImage(water, j, i, null);
-
-						}
-						else { // land
-
-						}
-					}
-				}
-
-			}
-		};
-		frame.add(pane);
-	}
 }
