@@ -101,7 +101,7 @@ public class Heap<T extends HeapItem> {
 
 		if(smallest != item){
 			swap(item, smallest);
-			sortDown(smallest);
+			sortDown(item);
 		}
 	}
 
