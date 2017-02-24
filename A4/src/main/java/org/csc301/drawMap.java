@@ -55,8 +55,10 @@ public class drawMap {
 
     private void createPanel() throws IOException{
         panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 1, 1));
-        panel.setLayout(new GridLayout(height, width, 0 , 0));
+        panel.setLayout(new GridBagLayout());
         panel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+
+        GridBagConstraints c = new GridBagConstraints();
 
         BufferedImage water = ImageIO.read(new File("/home/mvaghela/csc301/assignment4-torontomaplelaughs/A4/src/main/java/org/csc301/water.gif"));
         BufferedImage land = ImageIO.read(new File("/home/mvaghela/csc301/assignment4-torontomaplelaughs/A4/src/main/java/org/csc301/land.gif"));
@@ -69,13 +71,17 @@ public class drawMap {
                 if (i == islands.boat.gridY && j == islands.boat.gridX){
                     // boat
                     picLabel = new JLabel(new ImageIcon(boat));
-                    panel.add(picLabel);
+                    c.gridx = j;
+                    c.gridy = i;
+                    panel.add(picLabel, c);
                 }
 
                 else if (i == islands.treasure.gridY && j == islands.treasure.gridX){
                     // treasure
                     picLabel = new JLabel(new ImageIcon(treasure));
-                    panel.add(picLabel);
+                    c.gridx = j;
+                    c.gridy = i;
+                    panel.add(picLabel, c);
                 }
 
                 else if (islands.map[j][i].inPath){
@@ -85,19 +91,24 @@ public class drawMap {
                 else if (islands.map[j][i].walkable) {
                     // water
                     picLabel = new JLabel(new ImageIcon(water));
-                    panel.add(picLabel);
+                    c.gridx = j;
+                    c.gridy = i;
+                    panel.add(picLabel, c);
 
                 }
                 else { // land
                     picLabel = new JLabel(new ImageIcon(land));
-                    panel.add(picLabel);
+                    c.gridx = j;
+                    c.gridy = i;
+                    panel.add(picLabel, c);
 
 
                 }
             }
         }
         frame.add(panel);
-
+        c.gridx = 0;
+        c.gridy = height + 2;
         JButton north = new JButton("North");
         JButton south = new JButton("South");
         JButton east = new JButton("East");
@@ -107,17 +118,24 @@ public class drawMap {
         JButton se = new JButton("South East");
         JButton sw = new JButton("South West");
 
-        JPanel buttonPanel = new JPanel();
-        panel.add(north);
-        panel.add(south);
-        panel.add(east);
-        panel.add(west);
-        panel.add(ne);
-        panel.add(nw);
-        panel.add(se);
-        panel.add(sw);
+        panel.add(north, c);
+        c.gridx++;
+        panel.add(south, c);
+        c.gridx++;
+        panel.add(east,c);
+        c.gridx++;
+        panel.add(west,c);
+        c.gridx++;
+        panel.add(ne,c);
+        c.gridx++;
+        panel.add(nw,c);
+        c.gridx++;
+        panel.add(se,c);
+        c.gridx++;
+        panel.add(sw,c);
         frame.add(panel);
-
+        frame.pack();
+        frame.setVisible(true);
     }
 
 }
