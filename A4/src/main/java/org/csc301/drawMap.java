@@ -60,10 +60,10 @@ public class drawMap {
 
         GridBagConstraints c = new GridBagConstraints();
 
-        BufferedImage water = ImageIO.read(new File("/home/mvaghela/csc301/assignment4-torontomaplelaughs/A4/src/main/java/org/csc301/water.gif"));
-        BufferedImage land = ImageIO.read(new File("/home/mvaghela/csc301/assignment4-torontomaplelaughs/A4/src/main/java/org/csc301/land.gif"));
-        BufferedImage boat = ImageIO.read(new File("/home/mvaghela/csc301/assignment4-torontomaplelaughs/A4/src/main/java/org/csc301/boat.png"));
-        BufferedImage treasure = ImageIO.read(new File("/home/mvaghela/csc301/assignment4-torontomaplelaughs/A4/src/main/java/org/csc301/tres.gif"));
+        BufferedImage water = ImageIO.read(new File("/home/mvaghela/csc301/assignment4-torontomaplelaughs/A4/src/main/java/org/csc301/images/water.png"));
+        BufferedImage land = ImageIO.read(new File("/home/mvaghela/csc301/assignment4-torontomaplelaughs/A4/src/main/java/org/csc301/images/island.png"));
+        BufferedImage boat = ImageIO.read(new File("/home/mvaghela/csc301/assignment4-torontomaplelaughs/A4/src/main/java/org/csc301/images/boat.png"));
+        BufferedImage treasure = ImageIO.read(new File("/home/mvaghela/csc301/assignment4-torontomaplelaughs/A4/src/main/java/org/csc301/images/treasure.png"));
         JLabel picLabel;
 
         for (int i = 0; i < height; i++) {
@@ -108,30 +108,33 @@ public class drawMap {
         }
         frame.add(panel);
         c.gridx = 0;
-        c.gridy = height + 2;
-        JButton north = new JButton("North");
-        JButton south = new JButton("South");
-        JButton east = new JButton("East");
-        JButton west = new JButton("West");
-        JButton ne = new JButton("North East");
-        JButton nw = new JButton("North West");
-        JButton se = new JButton("South East");
-        JButton sw = new JButton("South West");
+        JButton north = new JButton("N");
+        JButton south = new JButton("S");
+        JButton east = new JButton("E");
+        JButton west = new JButton("W");
+        JButton ne = new JButton("NE");
+        JButton nw = new JButton("NW");
+        JButton se = new JButton("SE");
+        JButton sw = new JButton("SW");
 
+        //c.fill = GridBagConstraints.HORIZONTAL;
+        c.ipady = 40;
+        c.weightx = 0.0;
+        c.gridwidth = 2;
         panel.add(north, c);
-        c.gridx++;
+        c.gridx += 4;
         panel.add(south, c);
-        c.gridx++;
+        c.gridx += 4;
         panel.add(east,c);
-        c.gridx++;
+        c.gridx+= 4;
         panel.add(west,c);
-        c.gridx++;
+        c.gridx+= 4;
         panel.add(ne,c);
-        c.gridx++;
+        c.gridx+= 4;
         panel.add(nw,c);
-        c.gridx++;
+        c.gridx+= 4;
         panel.add(se,c);
-        c.gridx++;
+        c.gridx+= 4;
         panel.add(sw,c);
         frame.add(panel);
         frame.pack();
