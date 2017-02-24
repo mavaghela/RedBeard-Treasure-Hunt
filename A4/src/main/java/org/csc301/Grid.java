@@ -1,5 +1,9 @@
 package org.csc301;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 public class Grid {
@@ -45,6 +49,8 @@ public class Grid {
 
 	private void buildMap() {
 		int coord[];
+
+		// Finding out how many islands we need
 		double squares = width * height;
 		int numIslands = (int)(squares * ((double)percent/100.0));
 
@@ -77,7 +83,6 @@ public class Grid {
 			boat = new Node(false, coord[0], coord[1]);
 			map[coord[0]][coord[1]] = boat;
 
-
 			coord = getRandom(true);
 			treasure = new Node(true, coord[0], coord[1]);
 			map[coord[0]][coord[1]] = treasure;
@@ -103,6 +108,7 @@ public class Grid {
 				y = r.nextInt(height-1);
 			}
 		}
+		// Getting random coords for islands
 		else {
 			while (null != map[x][y]) {
 				x = r.nextInt(width-1);
@@ -114,8 +120,9 @@ public class Grid {
 		return coord;
 	}
 
+	/**  Draws the map **/
 	public String drawMap() {
-		// provided for your convenience
+
 		String result = "";
 		String hline = "       ";
 		String extraSpace;
@@ -151,6 +158,15 @@ public class Grid {
 			hline += (i % 10);
 		result += hline + "\n";
 		return result;
+	}
+
+	public void drawGui(){
+		BufferedImage img = null;
+		try {
+			img = ImageIO.read(new File("water.gif"));
+		}
+		catch (IOException e) {
+		}
 	}
 
 	public int getWidth() {
