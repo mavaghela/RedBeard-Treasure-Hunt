@@ -6,6 +6,9 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 import org.csc301.Heap;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.Type;
+
 public class HeapTest {
 
     // Reflection tests
@@ -28,7 +31,8 @@ public class HeapTest {
     public void testReflectionMethodSortDown(){
         try {
             Class<?> c = Heap.class;
-            Method m = c.getMethod("sortDown", new Class<?>[]{Object.class});
+            Method m = c.getDeclaredMethod("sortDown", new Class<?>[]{Object.class});
+			m.setAccessible(true);
             Type t = m.getReturnType();
             assertTrue("The return type of sortDown() should be void",
                     t.equals(void.class));
@@ -50,10 +54,11 @@ public class HeapTest {
 
 		Heap<Node> test = new Heap<>(2);
 		Heap<Node> expected = new Heap<>(2);
-
-		test.add(n1);
-		test.add(n2);
-
+		try {
+			test.add(n1);
+			test.add(n2);
+		}
+		catch (Exception e){System.out.println("Something went wrong");}
 		expected.items[0] = n1;
 		expected.items[1] = n2;
 
@@ -62,7 +67,7 @@ public class HeapTest {
 
 	@Test(timeout=100)
 	//@Description(description = "sortUp: parent is greater than child")
-	public void testSortUp1() {
+	public void testSortUp1() throws HeapFullException {
 		Node n1 = new Node(true, 0, 0);
 		n1.gCost = 10;
 		n1.hCost = 10;
@@ -85,7 +90,7 @@ public class HeapTest {
 
 	@Test(timeout=100)
 	//@Description(description = "sortUp: parent is equal to child")
-	public void testSortUp2() {
+	public void testSortUp2() throws HeapFullException {
 		Node n1 = new Node(true, 0, 0);
 		n1.gCost = 10;
 		n1.hCost = 10;
@@ -108,7 +113,7 @@ public class HeapTest {
 
 	@Test(timeout=100)
 	//@Description(description = "sortDown: left child is less than")
-	public void testSortDown0() {
+	public void testSortDown0() throws HeapFullException, HeapEmptyException {
 		Node n50 = new Node(true, 0, 0);
 		n50.gCost = 0;
 		n50.hCost = 50;
@@ -143,7 +148,7 @@ public class HeapTest {
 
 	@Test(timeout=100)
 	//@Description(description = "sortDown: right child is less than")
-	public void testSortDown1() {
+	public void testSortDown1() throws HeapFullException, HeapEmptyException {
 		Node n50 = new Node(true, 0, 0);
 		n50.gCost = 0;
 		n50.hCost = 50;
@@ -178,7 +183,7 @@ public class HeapTest {
 
 	@Test(timeout=100)
 	//@Description(description = "sortDown: children are equal")
-	public void testSortDown2() {
+	public void testSortDown2() throws HeapFullException, HeapEmptyException {
 		Node n50 = new Node(true, 0, 0);
 		n50.gCost = 0;
 		n50.hCost = 50;

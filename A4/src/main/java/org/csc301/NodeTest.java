@@ -5,6 +5,10 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import org.junit.Test;
 import org.csc301.Node;
+import org.csc301.HeapTest;
+
+import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 
 public class NodeTest {
 
@@ -103,7 +107,7 @@ public class NodeTest {
 
 	@Test(timeout=100)
 	//@Description(description = "equals: node 1 is not equal to node 2")
-	public void testEquals0() {
+	public void testEquals1() {
 		Node n1 = new Node(true, 0, 0);
 
 		Node n2 = new Node(true, 1, 1);
