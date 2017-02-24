@@ -108,6 +108,7 @@ public class drawMap {
         }
         frame.add(panel);
         c.gridx = 0;
+        c.gridy = height + 3;
         JButton north = new JButton("N");
         JButton south = new JButton("S");
         JButton east = new JButton("E");
@@ -118,9 +119,10 @@ public class drawMap {
         JButton sw = new JButton("SW");
 
         //c.fill = GridBagConstraints.HORIZONTAL;
-        c.ipady = 40;
+        c.ipady = 20;
+        c.insets = new Insets(10,0,0,0);
         c.weightx = 0.0;
-        c.gridwidth = 2;
+        c.gridwidth = 5;
         panel.add(north, c);
         c.gridx += 4;
         panel.add(south, c);
