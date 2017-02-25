@@ -68,21 +68,32 @@ public class drawMap {
         JTextField heightText = new JTextField("height", 4);
         JTextField widthText = new JTextField("width", 4);
         JTextField sonarText = new JTextField("sonar", 4);
+        JButton custom = new JButton("Custom Grid");
+        JButton standard = new JButton("Default Grid");
         menuPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 1, 1));
         menuPanel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
-        menuPanel.add(welcome);
+
 
         c.gridy = 1;
         c.gridx = 0;
         menuPanel.add(heightText, c);
 
-        c.gridx ++;
+        c.gridx += 6;
         menuPanel.add(widthText, c);
 
-        c.gridx ++ ;
+        c.gridx += 6 ;
         menuPanel.add(sonarText, c);
 
+        c.gridy = 2;
+        c.gridx = 0;
+        menuPanel.add(custom, c);
+
+        c.gridx = 10;
+        menuPanel.add(standard,c);
+
+        c.gridy = 3;
+        menuPanel.add(welcome, c);
         menuFrame.add(menuPanel);
         menuFrame.pack();
         menuFrame.setVisible(true);
