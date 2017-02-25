@@ -37,7 +37,7 @@ public class drawMap {
             createPanel();
         }
         catch (Exception E){
-            System.out.println("uhohhhhh");
+            System.out.println("File not found");
         }
 
     }
@@ -207,10 +207,8 @@ public class drawMap {
             public void actionPerformed(ActionEvent actionEvent) {
 
                 String name = button.getText();
-                System.out.println(String.format("We clicked %s", name));
                 switch (name){
                     case "Drop Sonar":
-                        System.out.println("Dropped Sonar");
                             try {
                                 game.processCommand("SONAR");
                             } catch (HeapFullException e) {
@@ -218,7 +216,6 @@ public class drawMap {
                             } catch (HeapEmptyException e) {
                                 e.printStackTrace();
                             }
-                        System.out.println(game.state);
                         break;
 
                     default:
@@ -235,7 +232,6 @@ public class drawMap {
                 try {
                     createPanel();
                     if(game.state.equals("OVER")){
-                        System.out.println("All sonars are used");
                         if(game.pathLength() > 0){
                             if(!flag) {
                                 flag = true;
