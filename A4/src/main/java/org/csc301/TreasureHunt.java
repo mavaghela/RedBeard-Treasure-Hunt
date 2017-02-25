@@ -21,6 +21,7 @@ public class TreasureHunt {
 		this.islands = new Grid();
 		this.sonars = DEFAULT_SONARS;
 		this.range = DEFAULT_RANGE;
+		this.state = "STARTED";
 	}
 
 	public TreasureHunt(int height, int width, int landPercent, int sonars,
@@ -32,6 +33,7 @@ public class TreasureHunt {
 		this.sonars = sonars;
 		this.range = range;
 		this.islands = new Grid(width, height, landPercent);
+		this.state = "STARTED";
 	}
 
 	public void processCommand(String command) throws HeapFullException,
@@ -40,6 +42,11 @@ public class TreasureHunt {
 		// SONAR to drop the sonar in hope to detect treasure
 		// GO direction to move the boat in some direction
 		// For example, GO NW means move the boat one cell up left (if the cell is navigable; if not simply ignore the command)
+
+		if(state.equals("OVER")){
+			return;
+		}
+
 		if(command.equals("SONAR")) {
 			if (sonars == 0) {
 				// TODO you lose the game
@@ -82,7 +89,7 @@ public class TreasureHunt {
 		// Read a batch of commands from a text file and process them.
 
 		File file = new File(pathName);
-		state = "STARTED";
+
     	try {
 	        Scanner sc = new Scanner(file);
 
