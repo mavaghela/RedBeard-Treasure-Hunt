@@ -72,11 +72,13 @@ public class drawMap {
 
         GridBagConstraints c = new GridBagConstraints();
 
-        BufferedImage water = ImageIO.read(new File("/Users/Ryan/Desktop/GitHub/assignment4-torontomaplelaughs/A4/src/main/java/org/csc301/images/water.png"));
-        BufferedImage land = ImageIO.read(new File("/Users/Ryan/Desktop/GitHub/assignment4-torontomaplelaughs/A4/src/main/java/org/csc301/images/island.png"));
-        BufferedImage boat = ImageIO.read(new File("/Users/Ryan/Desktop/GitHub/assignment4-torontomaplelaughs/A4/src/main/java/org/csc301/images/boat.png"));
-        BufferedImage treasure = ImageIO.read(new File("/Users/Ryan/Desktop/GitHub/assignment4-torontomaplelaughs/A4/src/main/java/org/csc301/images/treasure.png"));
-        BufferedImage path = ImageIO.read(new File("/Users/Ryan/Desktop/GitHub/assignment4-torontomaplelaughs/A4/src/main/java/org/csc301/images/path.png"));
+
+        BufferedImage water = ImageIO.read(new File("images/water.png"));
+        BufferedImage land = ImageIO.read(new File("images/island.png"));
+        BufferedImage boat = ImageIO.read(new File("images/boat.png"));
+        BufferedImage treasure = ImageIO.read(new File("images/treasure.png"));
+        BufferedImage path = ImageIO.read(new File("images/path.png"));
+
 
         JLabel picLabel;
 
