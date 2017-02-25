@@ -48,7 +48,11 @@ public class TreasureHunt {
 		// SONAR to drop the sonar in hope to detect treasure
 		// GO direction to move the boat in some direction
 		// For example, GO NW means move the boat one cell up left (if the cell is navigable; if not simply ignore the command)
-		if(state.equals("OVER")){return;}
+
+		if(state.equals("OVER")){
+			return;
+		}
+
 		if(command.equals("SONAR")) {
 			sonars --;
 
@@ -93,6 +97,7 @@ public class TreasureHunt {
 		// Read a batch of commands from a text file and process them.
 
 		File file = new File(pathName);
+
     	try {
 	        Scanner sc = new Scanner(file);
 

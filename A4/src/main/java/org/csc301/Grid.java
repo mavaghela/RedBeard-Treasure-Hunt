@@ -17,7 +17,7 @@ public class Grid {
 	protected Node boat; // points to the current location of our boat on the map
 
 	protected Node[][] map; // the map
-
+	//TODO remove debug statements
 	private boolean DEBUG = false;
 
 	public Grid() {
