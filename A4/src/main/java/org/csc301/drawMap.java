@@ -117,6 +117,7 @@ public class drawMap {
         JButton nw = new JButton("NW");
         JButton se = new JButton("SE");
         JButton sw = new JButton("SW");
+        JButton sonar = new JButton("Drop Sonar");
 
         //c.fill = GridBagConstraints.HORIZONTAL;
         c.ipady = 20;
@@ -138,6 +139,9 @@ public class drawMap {
         panel.add(se,c);
         c.gridx+= 4;
         panel.add(sw,c);
+        c.gridx+= 4;
+        c.gridwidth = 15;
+        panel.add(sonar,c);
         frame.add(panel);
         frame.pack();
         frame.setVisible(true);
