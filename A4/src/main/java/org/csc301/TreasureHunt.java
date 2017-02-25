@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.*;
 
-import static org.csc301.GameTest.buildFrame;
 
 public class TreasureHunt {
 

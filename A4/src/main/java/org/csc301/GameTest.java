@@ -1,11 +1,5 @@
 package org.csc301;
 
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -32,12 +26,5 @@ public class GameTest {
         System.out.println(game.pathLength());
 	}
 
-	public static JFrame buildFrame() {
-		JFrame frame = new JFrame();
-		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		frame.setSize(200, 200);
-		frame.setVisible(true);
-		return frame;
-	}
 
 }
