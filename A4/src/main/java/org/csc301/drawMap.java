@@ -180,7 +180,7 @@ public class drawMap {
         panel.add(sonar,c);
 
         if(game.state.equals("OVER")){
-            c.gridx+= 4;
+            c.gridx+= 10;
             c.gridwidth = 15;
             panel.add(playAgain,c);
         }
