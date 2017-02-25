@@ -18,6 +18,7 @@ public class drawMap {
     private JFrame frame;
     private JFrame menuFrame;
     private JPanel panel;
+    private JPanel menuPanel;
     private JButton button;
     private  JLabel label;
     private final int DEFAULT_WIDTH = 60;
@@ -32,6 +33,7 @@ public class drawMap {
         width = DEFAULT_WIDTH;
         height = DEFAULT_HEIGHT;
         islands = game.islands;
+        createMenu();
         createFrame();
         try {
             createPanel();
@@ -61,11 +63,29 @@ public class drawMap {
 
     private void createMenu(){
         menuFrame = new JFrame("Grid Layout");
-        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        JTextField heightText = new JTextField("Enter Height:", 4);
-        JTextField widthText = new JTextField("Enter Width:", 4);
-        JTextField sonarText = new JTextField("Enter number of sonars:", 4);
-        frame.setVisible(true);
+        menuFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        JLabel welcome = new JLabel("Treasure Hunt: Choose a grid height, width and number of sonars or click default");
+        JTextField heightText = new JTextField("height", 4);
+        JTextField widthText = new JTextField("width", 4);
+        JTextField sonarText = new JTextField("sonar", 4);
+        menuPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 1, 1));
+        menuPanel.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        menuPanel.add(welcome);
+
+        c.gridy = 1;
+        c.gridx = 0;
+        menuPanel.add(heightText, c);
+
+        c.gridx ++;
+        menuPanel.add(widthText, c);
+
+        c.gridx ++ ;
+        menuPanel.add(sonarText, c);
+
+        menuFrame.add(menuPanel);
+        menuFrame.pack();
+        menuFrame.setVisible(true);
     }
 
     private void createPanel() throws IOException{
@@ -165,7 +185,6 @@ public class drawMap {
         JButton playAgain = new JButton("Play Again");
         onClick(playAgain);
 
-        //c.fill = GridBagConstraints.HORIZONTAL;
         c.ipady = 20;
         c.insets = new Insets(10,0,0,0);
         c.weightx = 0.0;
