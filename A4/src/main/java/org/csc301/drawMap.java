@@ -3,6 +3,8 @@ package org.csc301;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -20,11 +22,13 @@ public class drawMap {
     private final int DEFAULT_HEIGHT = 15;
     protected int width, height;
     protected Grid islands;
+    protected TreasureHunt game;
 
-    public drawMap(Grid world){
+    public drawMap(TreasureHunt game){
+        this.game = game;
         width = DEFAULT_WIDTH;
         height = DEFAULT_HEIGHT;
-        islands = world;
+        islands = game.islands;
         createFrame();
         try {
             createPanel();
@@ -35,11 +39,12 @@ public class drawMap {
 
     }
 
-    public drawMap(int width, int height, Grid world){
+    public drawMap(int width, int height, TreasureHunt game){
 
+        this.game = game;
         this.width = width;
         this.height = height;
-        islands = world;
+        islands = game.islands;
         createFrame();
 
     }
@@ -49,8 +54,6 @@ public class drawMap {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setSize(1000, 1000);
         frame.setVisible(true);
-      //  frame.setResizable(false);
-        return;
     }
 
     private void createPanel() throws IOException{
@@ -110,14 +113,31 @@ public class drawMap {
         c.gridx = 0;
         c.gridy = height + 3;
         JButton north = new JButton("N");
+        onClick(north);
+
         JButton south = new JButton("S");
+        onClick(south);
+
         JButton east = new JButton("E");
+        onClick(east);
+
         JButton west = new JButton("W");
+        onClick(west);
+
         JButton ne = new JButton("NE");
+        onClick(ne);
+
         JButton nw = new JButton("NW");
+        onClick(nw);
+
         JButton se = new JButton("SE");
+        onClick(se);
+
         JButton sw = new JButton("SW");
+        onClick(sw);
+
         JButton sonar = new JButton("Drop Sonar");
+        onClick(sonar);
 
         //c.fill = GridBagConstraints.HORIZONTAL;
         c.ipady = 20;
@@ -145,6 +165,48 @@ public class drawMap {
         frame.add(panel);
         frame.pack();
         frame.setVisible(true);
+    }
+
+    private void onClick(final JButton button) throws IOException {
+
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+
+                String name = button.getText();
+                System.out.println(String.format("We clicked %s", name));
+                switch (name){
+                    case "Drop Sonar":
+                        System.out.println("Dropped Sonar");
+                        try {
+                            game.processCommand("SONAR");
+                        } catch (HeapFullException e) {
+                            e.printStackTrace();
+                        } catch (HeapEmptyException e) {
+                            e.printStackTrace();
+                        }
+
+                        break;
+                    default:
+                        try {
+                            game.processCommand(String.format("GO %s", name));
+                        } catch (HeapFullException e) {
+                            e.printStackTrace();
+                        } catch (HeapEmptyException e) {
+                            e.printStackTrace();
+                        }
+
+
+                }
+                try {
+                    createPanel();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
     }
 
 }

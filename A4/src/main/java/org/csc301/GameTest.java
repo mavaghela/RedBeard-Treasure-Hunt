@@ -22,7 +22,7 @@ public class GameTest {
 		// TODO Auto-generated method stub
 
 		TreasureHunt game = new TreasureHunt();
-		drawMap thing = new drawMap(game.islands);
+		drawMap thing = new drawMap(game);
 //		game.buildGUI();
 		// TreasureHunt game = new TreasureHunt(4, 4, 0, 3, 100);
         game.play("/home/mvaghela/csc301/assignment4-torontomaplelaughs/A4/game.txt");
