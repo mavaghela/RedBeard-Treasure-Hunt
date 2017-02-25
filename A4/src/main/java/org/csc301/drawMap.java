@@ -24,6 +24,7 @@ public class drawMap {
     protected int width, height;
     protected Grid islands;
     protected TreasureHunt game;
+    private boolean flag = false;
 
     public drawMap(TreasureHunt game){
         this.game = game;
@@ -226,12 +227,16 @@ public class drawMap {
                     if(game.state.equals("OVER")){
                         System.out.println("All sonars are used");
                         if(game.pathLength() > 0){
-                            System.out.println("YOU WIN!");
-                            JOptionPane.showMessageDialog(null, "YOU WIN!");
+                            if(!flag) {
+                                flag = true;
+                                JOptionPane.showMessageDialog(null, "YOU WIN!");
+                            }
                         }
                         else{
-                            System.out.println("YOU LOSER!");
-                            JOptionPane.showMessageDialog(null, "YOU LOSE!");
+                            if(!flag) {
+                                flag = true;
+                                JOptionPane.showMessageDialog(null, "YOU LOSE!");
+                            }
                         }
                     }
                 } catch (IOException e) {
