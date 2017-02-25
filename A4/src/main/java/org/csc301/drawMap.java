@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -51,7 +52,7 @@ public class drawMap {
 
     private void createFrame(){
         frame = new JFrame("Grid Layout");
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame.setSize(1000, 1000);
         frame.setVisible(true);
     }
@@ -67,6 +68,8 @@ public class drawMap {
         BufferedImage land = ImageIO.read(new File("/home/mvaghela/csc301/assignment4-torontomaplelaughs/A4/src/main/java/org/csc301/images/island.png"));
         BufferedImage boat = ImageIO.read(new File("/home/mvaghela/csc301/assignment4-torontomaplelaughs/A4/src/main/java/org/csc301/images/boat.png"));
         BufferedImage treasure = ImageIO.read(new File("/home/mvaghela/csc301/assignment4-torontomaplelaughs/A4/src/main/java/org/csc301/images/treasure.png"));
+        BufferedImage path = ImageIO.read(new File("/home/mvaghela/csc301/assignment4-torontomaplelaughs/A4/src/main/java/org/csc301/images/path.png"));
+
         JLabel picLabel;
 
         for (int i = 0; i < height; i++) {
@@ -81,14 +84,23 @@ public class drawMap {
 
                 else if (i == islands.treasure.gridY && j == islands.treasure.gridX){
                     // treasure
-                    picLabel = new JLabel(new ImageIcon(treasure));
+
+                    if(game.state.equals("OVER")) {
+                        picLabel = new JLabel(new ImageIcon(treasure));
+                    }
+                    else{
+                        picLabel = new JLabel(new ImageIcon(water));
+                    }
                     c.gridx = j;
                     c.gridy = i;
                     panel.add(picLabel, c);
                 }
 
                 else if (islands.map[j][i].inPath){
-
+                    picLabel = new JLabel(new ImageIcon(path));
+                    c.gridx = j;
+                    c.gridy = i;
+                    panel.add(picLabel, c);
                 }
 
                 else if (islands.map[j][i].walkable) {
@@ -139,6 +151,9 @@ public class drawMap {
         JButton sonar = new JButton("Drop Sonar");
         onClick(sonar);
 
+        JButton playAgain = new JButton("Play Again");
+        onClick(playAgain);
+
         //c.fill = GridBagConstraints.HORIZONTAL;
         c.ipady = 20;
         c.insets = new Insets(10,0,0,0);
@@ -162,6 +177,13 @@ public class drawMap {
         c.gridx+= 4;
         c.gridwidth = 15;
         panel.add(sonar,c);
+
+        if(game.state.equals("OVER")){
+            c.gridx+= 4;
+            c.gridwidth = 15;
+            panel.add(playAgain,c);
+        }
+
         frame.add(panel);
         frame.pack();
         frame.setVisible(true);
@@ -186,17 +208,8 @@ public class drawMap {
                                 e.printStackTrace();
                             }
                         System.out.println(game.state);
-                        if(game.state.equals("OVER")){
-                            System.out.println("All sonars are used");
-                            if(game.pathLength() > 0){
-                                System.out.println("YOU WIN!");
-                            }
-                            else{
-                                System.out.println("YOU LOSER!");
-                            }
-                        }
-
                         break;
+
                     default:
                         try {
                             game.processCommand(String.format("GO %s", name));
@@ -210,8 +223,32 @@ public class drawMap {
                 }
                 try {
                     createPanel();
+                    if(game.state.equals("OVER")){
+                        System.out.println("All sonars are used");
+                        if(game.pathLength() > 0){
+                            System.out.println("YOU WIN!");
+                            JOptionPane.showMessageDialog(null, "YOU WIN!");
+                        }
+                        else{
+                            System.out.println("YOU LOSER!");
+                            JOptionPane.showMessageDialog(null, "YOU LOSE!");
+                        }
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
+                }
+
+                if(name.equals("Play Again")){
+                    frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+                    try {
+                        GameTest.main(null);
+                    } catch (HeapFullException e) {
+                        e.printStackTrace();
+                    } catch (HeapEmptyException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });

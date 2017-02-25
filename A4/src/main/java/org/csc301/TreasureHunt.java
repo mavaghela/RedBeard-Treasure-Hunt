@@ -50,19 +50,21 @@ public class TreasureHunt {
 		// For example, GO NW means move the boat one cell up left (if the cell is navigable; if not simply ignore the command)
 		if(state.equals("OVER")){return;}
 		if(command.equals("SONAR")) {
-			if (sonars == 0) {
-				// TODO you lose the game
-				state = "OVER";
-				return;
-			}
-
 			sonars --;
+
+
 			Node treasure = islands.getTreasure(range);
 			if(treasure != null){
 				// TODO you win
 				state = "OVER";
 				islands.findPath(islands.boat, treasure);
 				path = islands.retracePath(islands.boat, treasure);
+			}
+
+			if (sonars == 0) {
+				// TODO you lose the game
+				state = "OVER";
+				return;
 			}
 		}
 		else {
