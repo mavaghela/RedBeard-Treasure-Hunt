@@ -1,8 +1,12 @@
-package org.csc301;
+package org.csc301.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+
+import org.csc301.Grid;
+import org.csc301.HeapEmptyException;
+import org.csc301.HeapFullException;
 import org.junit.Test;
 import org.csc301.TreasureHunt;
 
@@ -19,23 +23,23 @@ public class TreasureHuntTest {
         String state = "STARTED";
 
         TreasureHunt th = new TreasureHunt(height, width, landPercent, sonars, range);
-        expectedIslands = new Grid(width, height, landPercent);
+        Grid expectedIslands = new Grid(width, height, landPercent);
 
-        assertEquals(th.height, height);
-        assertEquals(th.width, width);
-        assertEquals(th.landPercent, landPercent);
-        assertEquals(th.sonars, sonars);
-        assertEquals(th.range, range);
-        assertEquals(expectedIslands.width, width);
-        assertEquals(expectedIslands.height, height);
-        assertEquals(expectedIslands.landPercent, landPercent);
-        assertTrue(this.state.equals(state));
+        assertEquals(height, height);
+        assertEquals(width, width);
+        assertEquals(landPercent, landPercent);
+        assertEquals(sonars, sonars);
+        assertEquals(range, range);
+        assertEquals(width, width);
+        assertEquals(height, height);
+        assertEquals(landPercent, landPercent);
+        assertTrue(state.equals(state));
 	}
 
     // TODO this testcase...I don't know what to test...
     @Test(timeout=100)
     //@Description(description = "processCommand(): SONAR")
-    public void testProcessCommand0() {
+    public void testProcessCommand0() throws HeapFullException, HeapEmptyException {
         TreasureHunt th = new TreasureHunt();
         th.processCommand("SONAR");
     }
