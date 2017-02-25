@@ -10,9 +10,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * Created by mvaghela on 2/24/17.
- */
 public class drawMap {
 
     private JFrame frame;
@@ -75,11 +72,11 @@ public class drawMap {
 
         GridBagConstraints c = new GridBagConstraints();
 
-        BufferedImage water = ImageIO.read(new File("/home/mvaghela/csc301/assignment4-torontomaplelaughs/A4/src/main/java/org/csc301/images/water.png"));
-        BufferedImage land = ImageIO.read(new File("/home/mvaghela/csc301/assignment4-torontomaplelaughs/A4/src/main/java/org/csc301/images/island.png"));
-        BufferedImage boat = ImageIO.read(new File("/home/mvaghela/csc301/assignment4-torontomaplelaughs/A4/src/main/java/org/csc301/images/boat.png"));
-        BufferedImage treasure = ImageIO.read(new File("/home/mvaghela/csc301/assignment4-torontomaplelaughs/A4/src/main/java/org/csc301/images/treasure.png"));
-        BufferedImage path = ImageIO.read(new File("/home/mvaghela/csc301/assignment4-torontomaplelaughs/A4/src/main/java/org/csc301/images/path.png"));
+        BufferedImage water = ImageIO.read(new File("/Users/Ryan/Desktop/GitHub/assignment4-torontomaplelaughs/A4/src/main/java/org/csc301/images/water.png"));
+        BufferedImage land = ImageIO.read(new File("/Users/Ryan/Desktop/GitHub/assignment4-torontomaplelaughs/A4/src/main/java/org/csc301/images/island.png"));
+        BufferedImage boat = ImageIO.read(new File("/Users/Ryan/Desktop/GitHub/assignment4-torontomaplelaughs/A4/src/main/java/org/csc301/images/boat.png"));
+        BufferedImage treasure = ImageIO.read(new File("/Users/Ryan/Desktop/GitHub/assignment4-torontomaplelaughs/A4/src/main/java/org/csc301/images/treasure.png"));
+        BufferedImage path = ImageIO.read(new File("/Users/Ryan/Desktop/GitHub/assignment4-torontomaplelaughs/A4/src/main/java/org/csc301/images/path.png"));
 
         JLabel picLabel;
 
@@ -263,8 +260,5 @@ public class drawMap {
                 }
             }
         });
-
-
     }
-
 }

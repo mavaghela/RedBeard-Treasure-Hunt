@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.*;
 
-import static org.csc301.GameTest.buildFrame;
-
 public class TreasureHunt {
 
 	private final int DEFAULT_SONARS = 3; // default number of available sonars
@@ -59,14 +57,12 @@ public class TreasureHunt {
 
 			Node treasure = islands.getTreasure(range);
 			if(treasure != null){
-				// TODO you win
 				state = "OVER";
 				islands.findPath(islands.boat, treasure);
 				path = islands.retracePath(islands.boat, treasure);
 			}
 
 			if (sonars == 0) {
-				// TODO you lose the game
 				state = "OVER";
 				return;
 			}
