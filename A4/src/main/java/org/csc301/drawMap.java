@@ -16,6 +16,7 @@ import java.io.IOException;
 public class drawMap {
 
     private JFrame frame;
+    private JFrame menuFrame;
     private JPanel panel;
     private JButton button;
     private  JLabel label;
@@ -55,6 +56,15 @@ public class drawMap {
         frame = new JFrame("Grid Layout");
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame.setSize(1000, 1000);
+        frame.setVisible(true);
+    }
+
+    private void createMenu(){
+        menuFrame = new JFrame("Grid Layout");
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        JTextField heightText = new JTextField("Enter Height:", 4);
+        JTextField widthText = new JTextField("Enter Width:", 4);
+        JTextField sonarText = new JTextField("Enter number of sonars:", 4);
         frame.setVisible(true);
     }
 
