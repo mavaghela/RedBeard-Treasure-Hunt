@@ -178,12 +178,22 @@ public class drawMap {
                 switch (name){
                     case "Drop Sonar":
                         System.out.println("Dropped Sonar");
-                        try {
-                            game.processCommand("SONAR");
-                        } catch (HeapFullException e) {
-                            e.printStackTrace();
-                        } catch (HeapEmptyException e) {
-                            e.printStackTrace();
+                            try {
+                                game.processCommand("SONAR");
+                            } catch (HeapFullException e) {
+                                e.printStackTrace();
+                            } catch (HeapEmptyException e) {
+                                e.printStackTrace();
+                            }
+                        System.out.println(game.state);
+                        if(game.state.equals("OVER")){
+                            System.out.println("All sonars are used");
+                            if(game.pathLength() > 0){
+                                System.out.println("YOU WIN!");
+                            }
+                            else{
+                                System.out.println("YOU LOSER!");
+                            }
                         }
 
                         break;

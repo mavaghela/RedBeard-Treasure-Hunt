@@ -25,7 +25,7 @@ public class GameTest {
 		drawMap thing = new drawMap(game);
 //		game.buildGUI();
 		// TreasureHunt game = new TreasureHunt(4, 4, 0, 3, 100);
-        game.play("/home/mvaghela/csc301/assignment4-torontomaplelaughs/A4/game.txt");
+        //game.play("/home/mvaghela/csc301/assignment4-torontomaplelaughs/A4/game.txt");
 
         System.out.println(game.getMap());
         System.out.println(game.state);
